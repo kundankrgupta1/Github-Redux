@@ -1,2 +1,3 @@
 import { legacy_createStore } from "redux"
-export const store = legacy_createStore(combinedReducer, InitialState);
+import { todoReducer } from "./reducer";
+export const store = legacy_createStore(todoReducer);

@@ -1,3 +1,11 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "title": "Learn HTML",
+      "desc": "Hyper Text Markup Langugae",
+      "due_date": "2024-04-24",
+      "status": true,
+      "id": 1
+    }
+  ]
 }

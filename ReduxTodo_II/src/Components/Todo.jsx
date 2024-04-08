@@ -1,22 +1,19 @@
 import axios from "axios"
 import TodoInput from "./TodoInput"
 import TodoItems from "./TodoItems"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Box } from "@chakra-ui/react"
 import Loading from "./Loading"
 import Error from "./Error"
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLoading, setIsError } from "../Redux/app_state/action"
+import { setAddTodo } from "../Redux/Todo/action"
 const Todo = () => {
-	const [data, setData] = useState([]);
-	// const [isLoading, setIsLoading] = useState(false);
-	// const [isError, setIsError] = useState(false);
 
-	const { isLoading, isError } = useSelector((state) => state.appState)
+	const { appState, todos } = useSelector((state) => state)
+	const { isLoading, isError } = appState
 	const dispatch = useDispatch();
-	// console.log(state);
 	const fetchData = async () => {
-		// setIsLoading(true)
 		dispatch(setIsLoading(true))
 		try {
 			const res = await axios("http://localhost:8080/todos", {
@@ -25,7 +22,7 @@ const Todo = () => {
 					"Content-Type": "application/json"
 				}
 			})
-			setData(res.data);
+			dispatch(setAddTodo(res.data))
 			dispatch(setIsLoading(false))
 		} catch (error) {
 			dispatch(setIsLoading(false))
@@ -97,7 +94,7 @@ const Todo = () => {
 			<div>
 				<TodoInput handleAddTodo={handleAddTodo} />
 				<Box width={800} m={'auto'} mt={5} >
-					{data.map((e, ind) => <TodoItems key={ind} {...e} handleTodoStatus={handleTodoStatus} />)}
+					{todos.map((e, ind) => <TodoItems key={ind} {...e} handleTodoStatus={handleTodoStatus} />)}
 				</Box>
 			</div >
 	)

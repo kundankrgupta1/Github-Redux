@@ -4,7 +4,7 @@ import { todoReducer } from "./Todo/reducer";
 
 const rootReducer = combineReducers({
 	appState: appReducer,
-	todo: todoReducer,
+	todos: todoReducer,
 })
 
 export const store = legacy_createStore(rootReducer);
